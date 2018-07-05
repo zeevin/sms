@@ -59,7 +59,7 @@ class App2eGateway implements SmsGatewayInterface
         $client = new Client();
         Log::info('SMS: app2e '.http_build_query($this->gwvars));
         $this->response = $client->request('POST', $this->getUrl(), ['form_params' => $this->gwvars])->getBody()->getContents();
-        Log::info('SMS:app2e Response: '.$this->response.'['.$mobile.']');
+        Log::info('SMS:app2e Response: '.$this->response);
         $this->setStatus();
 
         return $this;
@@ -113,10 +113,11 @@ class App2eGateway implements SmsGatewayInterface
 
     public function setStatus()
     {
-        if ($this->response == 100)
+        $response = json_decode($this->response,true);
+        if ($response['status'] == 100)
             $this->status = true;
         else
-            $this->response = isset(self::$resultCode[$this->response]) ? self::$resultCode[$this->response] : '短信发送失败，请稍后再试';
+            $this->response = isset(self::$resultCode[$response]) ? self::$resultCode[$response] : '短信发送失败，请稍后再试';
     }
 
 }
