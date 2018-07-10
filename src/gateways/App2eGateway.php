@@ -30,6 +30,7 @@ class App2eGateway implements SmsGatewayInterface
             '120' => '内容过长，请不要超过500个字',
             '121' => '内容中含屏蔽词',
             '131' => '非法的IP地址',
+            '1'=>'test'
         ];
     protected $gwvars = [];
     protected $url = '';
