@@ -19,7 +19,7 @@ class SmsServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $gateway = Config::get('sms.gateway');
+        $gateway = ucfirst(Config::get('sms.gateway'));
         $view = Config::get('sms.view');
         $this->app->bind('sms','Initlu\Sms\Sms');
         $this->app->bind('Initlu\Sms\Gateways\SmsGatewayInterface','Initlu\Sms\Gateways\\'.$gateway.'Gateway');
